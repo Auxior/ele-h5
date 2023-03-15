@@ -2,7 +2,6 @@
 import { RouterView, useRoute, useRouter } from 'vue-router';
 import { ref, watch } from 'vue'
 
-
 const route = useRoute()
 const router = useRouter()
 // 记录当前选择的 tab
