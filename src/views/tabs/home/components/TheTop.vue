@@ -1,10 +1,26 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { ISearchRecomment } from '@/types'
+import OpSearch from '@/components/OpSearch.vue';
 interface IProps {
   recomments: ISearchRecomment[]
 }
 
 defineProps<IProps>()
+
+const searchValue = ref('test')
+
+const onSearch = (v?: string | number) => {
+  console.log('====search', v);
+}
+
+const onCancel = () => {
+  console.log('====cancel');
+}
+
+const onClear = () => {
+  console.log('====clear');
+}
 </script>
 
 <template>
@@ -15,12 +31,19 @@ defineProps<IProps>()
       <img class="shopcart-icon" src="@/assets/imgs/index_page/shopcart.png" />
       <img class="comments-icon" src="@/assets/imgs/index_page/comments.png" />
     </div>
-    <VanSearch shape="round" background="linear-gradient(to right, rgb(53, 200, 250), rgb(31, 175, 243))"
-      placeholder="世界茶饮 35减2">
-      <template #right-icon>
-        <div>搜索</div>
-      </template>
-    </VanSearch>
+    <!-- <VanSearch shape="round" background="linear-gradient(to right, rgb(53, 200, 250), rgb(31, 175, 243))"
+                                                placeholder="世界茶饮 35减2">
+                                                <template #right-icon>
+                                                  <div>搜索</div>
+                                                </template>
+                                              </VanSearch> -->
+    <OpSearch show-action v-model="searchValue" shape="round"
+      background="linear-gradient(to right, rgb(53, 200, 250), rgb(31, 175, 243))" placeholder="世界茶饮 35减2"
+      @search="onSearch" @cancel="onCancel" @clear="onClear">
+      <!-- <template #right-icon>
+            <div>搜索</div>
+          </template> -->
+    </OpSearch>
     <div class="search-recommend">
       <div v-for="v in recomments" :key="v.value" class="tag">{{ v.label }}</div>
     </div>
@@ -41,8 +64,8 @@ defineProps<IProps>()
     font-weight: bold;
 
     .location-icon {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
     }
 
     .location {
